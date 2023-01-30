@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# checks if a file exits, is empty and if 
+# files a regular file
+
 file="school"
 if [ -e $file ];
 then
