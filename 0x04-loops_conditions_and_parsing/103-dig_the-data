@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# APACHE LOG SITES
+FILE="apache-access.log"
+awk '{print $1, $9}' $FILE | sort | uniq -c | sort -nr
