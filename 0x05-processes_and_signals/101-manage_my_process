@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# process
+argv=$1
+xfile="/var/run/my_process.pid"
+
+run_xfile()
+{
+	./manage_my_process &
+	echo "$!" > "$xfile"
+}
+
+end_xfile()
+{
+	sudo pkill -f "./manage_my_process"
+	rm -f $xfile
+}
+
+case $argv in
+start)
+	echo "manage_my_process started"
+	run_xfile
+	;;
+stop)	
+	echo "manage_my_process stopped"
+	end_xfile
+	;;
+restart)	
+	echo "manage_my_process restarted"
+	end_xfile
+	run_xfile
+	;;
+*)
+	echo "Usage: manage_my_process {start|stop|restart}"
+	;;
+esac	
