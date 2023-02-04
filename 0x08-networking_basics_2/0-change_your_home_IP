@@ -5,4 +5,4 @@
 
 cp /etc/hosts copy_host
 sed -i s/127.0.0.1/127.0.0.2\\tlocalhost\\n8.8.8.8\\tfacebook.com/g copy_host
-cp -f copy._host /etc/hosts
+cp -f copy_host /etc/hosts
