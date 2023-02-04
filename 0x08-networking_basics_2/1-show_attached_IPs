@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# this scriptf displays available ipv4 addresses
+# available on my system exclusively
+
+ifconfig | grep "inet " | cut -d " " -f10
