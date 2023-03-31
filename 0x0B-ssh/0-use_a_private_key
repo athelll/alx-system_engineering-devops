@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
 # use private key to ssh
 
-cd ~/.ssh
-cat school.pub | ssh ubuntu@54.152.113.36 "cat >> ~/.ssh/authorized_keys"
-ssh -i ./school ubuntu@54.152.113.36
+ssh -i ~/.ssh/school ubuntu@54.152.113.36
