@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# send file to sever using secure shell protocol [scp]
 
 if [[ $# -lt 3 ]]
 then
