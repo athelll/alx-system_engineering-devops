@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# wickedness
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+sudo apt-get -y update
+sudo apt-get -y nginx
+NEW_STRING="\\\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4; \n\t\}\n"
+sudo sed -i "42i $NEW_STRING" /etc/nginx/sites-available/default
+sudo service nginx start
