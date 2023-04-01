@@ -1,6 +1,9 @@
 # This class edits the ssh config file
-class 'ssh' {
-  client::password_authentication => 'no',
-  client::pubkey_authentication => 'yes',
-  client::identity_file => '~/.ssh/school',
+first_line 'Turn off passwd auth' {
+  path => '/etc/ssh/ssh_config',
+  line => 'PasswordAuthentication no',
 }
+
+first_line 'Declare identity file' {
+  path => '/etc/ssh/ssh_config',
+  line => 'IdentityFile ~/.ssh/school',
