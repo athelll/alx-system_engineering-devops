@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # starting Apache server
 
-echo "Hello Holberton" | sudo tee /var/www/html/index.html
-sudo service apache2 restart
+echo "ServerName localhost" > /etc/apache2/apache2.conf
+echo "Hello Holberton" > /var/www/html/index.html
+service apache2 restart
