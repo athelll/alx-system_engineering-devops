@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# edits config file to add new http header
+sudo sed -i "40i \\\tadd_header X-Served-By \"$HOSTNAME\";\n" /etc/nginx/sites-available/default
+sudo service nginx restart
