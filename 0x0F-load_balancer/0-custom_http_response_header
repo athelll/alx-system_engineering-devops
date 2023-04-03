@@ -1,4 +1,19 @@
 #!/usr/bin/env bash
+# sets up nginx adds a new http header in the response
+
+# sets up nginx
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo service nginx start
+
+# redirection handler
+NEW_STRING1="\\\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4; \n\t}\n"
+sudo sed -i "42i $NEW_STRING1" /etc/nginx/sites-available/default
+
+# error page resonse handler
+NEW_STRING2="\\\terror_page 404 /$error_file;\n\tlocation = /$error_file {\n\t\troot /var/www/html;\n\t\tinternal; \n\t}\n"
+sudo sed -i "45i $NEW_STRING2" /etc/nginx/sites-available/default
+
 # edits config file to add new http header
 sudo sed -i "40i \\\tadd_header X-Served-By \"$HOSTNAME\";\n" /etc/nginx/sites-available/default
 sudo service nginx restart
