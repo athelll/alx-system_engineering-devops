@@ -2,7 +2,10 @@
 # edits the haproxy config
 
 # sets up nginx and haproxy
+# but stops nginx to prvent port conflict
+# while accessing port 80
 sudo apt-get update
+sudo apt-get install nginx && sudo service nginx stop
 
 # sets up haproxy
 sudo apt-get install -y --no-install-recommends software-properties-common
@@ -20,6 +23,6 @@ CONFIG2="\\\nbackend server\n\tmode http\n\tbalance roundrobin\n\tserver 141974-
 sudo sed -i "\$a $CONFIG1" /etc/haproxy/haproxy.cfg
 sudo sed -i "\$a $CONFIG2" /etc/haproxy/haproxy.cfg
 
-# configures aproxy to use an init script
+# configures haproxy to use an init script
 sudo sed -i "\$a ENABLED=1" /etc/default/haproxy
 sudo service haproxy start
