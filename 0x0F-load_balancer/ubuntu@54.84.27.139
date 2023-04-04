@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# edits the haproxy config
+
+sudo apt-get update
+sudo apt-get -y install nginx
+
+sudo apt-get -y install --no-install-recommends software-properties-common
+sudo add-apt-repository ppa:vbernat/haproxy-2.6
+sudo apt-get install -y haproxy=2.6.\*
+sudo service haproxy start
+
+# edits comfig
+CONFIG="\\\nlisten appname 0.0.0.0:80 \n\tmode http \n\tbalance roundrobin\n\toption httpclose\n\toption forwardfor\n\tserver $HOSTNAME 18.209.178.238 check\n\tserver $HOSTNAME 54.198.80.112 check\n"
+
+# backup
+sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.bak
+
+# adds edit to config
+sudo sed -i "\$a $CONFIG" /etc/haproxy/haproxy.cfg
+
+# configures aproxy to use an init script
+sudo sed -i "s/ENABLED=0/ENABLED=1/" etc/default/haproxy
+sudo service haproxy restart
