@@ -25,4 +25,4 @@ sudo sed -i "\$a $CONFIG2" /etc/haproxy/haproxy.cfg
 
 # configures haproxy to use an init script
 sudo sed -i "\$a ENABLED=1" /etc/default/haproxy
-sudo service haproxy start
+sudo service haproxy restart
