@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# ---------------------------------
+# displays information about subdomains
+# displays the IP address they point to and 
+# the type of DNS resords the use
+# ---------------------------------
+# Usage: ./file <domain> <sub-domain>
+
+print_dom () {
+  printf "The subdomain %s is " "$2"
+  dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | awk -F' ' '{ printf $4 }'
+  printf " record and points to "
+  dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | awk -F' ' '{ printf $5 }'
+  echo ""
+}
+
+if [ -z "$2" ]; then
+  for subs in "www" "lb-01" "web-01" "web-02"
+  do
+    print_dom "$1" "$subs"
+  done
+else
+  print_dom "$1" "$2"
+fi
