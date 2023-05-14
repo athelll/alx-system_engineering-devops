@@ -7,7 +7,7 @@
 # Usage: ./file <domain> <sub-domain>
 
 print_dom () {
-  printf "The subdomain %s is " "$2"
+  printf "The subdomain %s is a " "$2"
   dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | awk -F' ' '{ printf $4 }'
   printf " record and points to "
   dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | awk -F' ' '{ printf $5 }'
