@@ -10,8 +10,8 @@ global
 
         # Setting up SSL from page
         # https://www.digitalocean.com/community/tutorials/how-to-secure-haproxy-with-let-s-encrypt-on-ubuntu-14-04
-        maxconn 2048
-        tune.ssl.default-dh-param 2048
+        # maxconn 2048
+        # tune.ssl.default-dh-param 2048
 
 	# Default SSL material locations
 	ca-base /etc/ssl/certs
@@ -23,6 +23,9 @@ global
         ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
 
 defaults
+	option forwardfor
+	option http-server-close
+
 	log	global
 	mode	http
 	option	httplog
@@ -37,8 +40,6 @@ defaults
 	errorfile 502 /etc/haproxy/errors/502.http
 	errorfile 503 /etc/haproxy/errors/503.http
 	errorfile 504 /etc/haproxy/errors/504.http
-	option forwardfor
-	option http-server-close
 
 frontend http
 	bind *:80
@@ -46,7 +47,7 @@ frontend http
 	default_backend server
 
 frontend https
-	bind *:433 ssl crt /etc/ssl/sixdeamon.tech.pem
+	bind *:443 ssl crt /etc/ssl/sixdeamon.tech.pem
 	http-request set-header X-Forwarded-Proto https
 	acl letsencrypt-acl path_beg /.well-known/acme-challenge/
 	use_backend letsencrypt-backend if letsencrypt-acl
@@ -54,7 +55,7 @@ frontend https
 
 backend server
 	balance roundrobin
-	redirect scheme https code 301  if !{ ssl_fc }
+	redirect scheme https if !{ ssl_fc }
 	server 141974-web-01 18.204.9.215:80
 	server 141974-web-02 54.144.45.169:80
 
