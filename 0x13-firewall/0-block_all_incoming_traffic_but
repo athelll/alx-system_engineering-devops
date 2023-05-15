@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# installs ufw, blocks all incoming traffic
+# except SSH, HTTP and HTTPS traffics
+
+# installation and setup
+sudo apt-get install -y ufw
+sudo sed -i "s/IPV6=no/IPV6=yes/" /etc/default/ufw
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+# allowing SSH, HTTP and HTTPS
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+
+# enable ufw
+sudo ufw enable
