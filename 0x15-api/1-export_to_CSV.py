@@ -21,10 +21,10 @@ if __name__ == '__main__':
             break
 
     if found_user:
-        with open('USER_ID.csv', 'w') as csv:
+        with open('{}.csv'.format(user_id), 'w') as csv:
             for todo in todos:
                 syntax = '"{}","{}","{}","{}"\n'.format(
-                        found_user.get('id'),
+                        user_id,
                         found_user.get('username'),
                         todo.get('completed'),
                         todo.get('title'))
