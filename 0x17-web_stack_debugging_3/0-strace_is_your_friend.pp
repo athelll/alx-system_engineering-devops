@@ -1,5 +1,4 @@
-# fixes bad `phpp` extensions to `php`
-# using puppet for automation
+# Fix bad `phpp` extensions to `php` with puppet
 
 exec { 'fix-wordpress':
 	command => 'sed -i s/phpp/php/g /var/www/html/wp-settings.php',
